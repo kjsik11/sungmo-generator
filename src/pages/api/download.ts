@@ -4,6 +4,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 import { NextApiBuilder } from '@src/backend/api-wrapper';
 import { mongoDbWrapper } from '@src/backend/api-wrapper/mongodb';
+import { FONT_PATH } from '@src/utils/env';
 import { getOptions } from '@src/utils/options';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -17,7 +18,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const options = await getOptions(process.env.NODE_ENV === 'development');
 
-    await Chromium.font('https://hangeul.pstatic.net/hangeul_static/css/nanum-gothic.css');
+    await Chromium.font(FONT_PATH);
 
     const browser = await Chromium.puppeteer.launch(options);
 
