@@ -21,14 +21,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const page = await browser.newPage();
 
-    await page.goto(
-      `${
-        process.env.NODE_ENV === 'production'
-          ? 'https://sungmo.jjong.co.kr'
-          : 'http://localhost:3000'
-      }?first=${first}&second=${second}`,
-    );
-
     await page.setExtraHTTPHeaders({
       'Accept-Language': 'ko',
     });
@@ -46,6 +38,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         },
       });
     });
+
+    await page.goto(
+      `${
+        process.env.NODE_ENV === 'production'
+          ? 'https://sungmo.jjong.co.kr'
+          : 'http://localhost:3000'
+      }?first=${first}&second=${second}`,
+    );
 
     await page.waitForSelector('#image-tag'); // wait for the selector to load
     const element = await page.$('#image-tag'); // declare a variable with an ElementHandle
