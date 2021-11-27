@@ -17,34 +17,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const options = await getOptions(process.env.NODE_ENV === 'development');
 
-    const document = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <style>
-      <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-gothic.css" rel="stylesheet">
-
-
-        @import url(https://hangeul.pstatic.net/hangeul_static/css/nanum-gothic.css);
-        body {
-          font-family: 'NanumGothicLight';
-          font-family: 'NanumGothic';
-          font-family: 'NanumGothicBold';
-          font-family: 'NanumGothicExtraBold';
-        }
-      </style>
-    </head>
-    <body>
-      <h1>Hello world!</h1>
-    </body>
-    </html>
-  `;
-
     const browser = await puppeteer.launch(options);
 
     const page = await browser.newPage();
-
-    await page.goto('data:text/html,' + document, { waitUntil: 'networkidle' as never });
 
     await page.goto(
       `${
