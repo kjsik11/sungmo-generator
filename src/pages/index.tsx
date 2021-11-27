@@ -40,6 +40,8 @@ export default function IndexPage({ text }: Props) {
 
         showNoti({ title: 'Success!!' });
 
+        setLine({ first: '', second: '' });
+
         return;
       }
 
@@ -105,7 +107,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       ...query,
-      text: { first: query.first ?? '123', second: query.second ?? '456' },
+      text: { first: query.first ?? '여자가...', second: query.second ?? '말대꾸?!' },
     },
   };
 };
