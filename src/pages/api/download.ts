@@ -1,6 +1,6 @@
+import Chromium from 'chrome-aws-lambda';
 import Joi from 'joi';
 import { NextApiRequest, NextApiResponse } from 'next';
-import puppeteer from 'puppeteer';
 
 import { NextApiBuilder } from '@src/backend/api-wrapper';
 import { mongoDbWrapper } from '@src/backend/api-wrapper/mongodb';
@@ -17,27 +17,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const options = await getOptions(process.env.NODE_ENV === 'development');
 
-    const browser = await puppeteer.launch(options);
+    await Chromium.font('https://hangeul.pstatic.net/hangeul_static/css/nanum-gothic.css');
+
+    const browser = await Chromium.puppeteer.launch(options);
 
     const page = await browser.newPage();
-
-    await page.setExtraHTTPHeaders({
-      'Accept-Language': 'ko',
-    });
-
-    // Set the language forcefully on javascript
-    await page.evaluateOnNewDocument(() => {
-      Object.defineProperty(navigator, 'language', {
-        get: function () {
-          return 'ko-kr';
-        },
-      });
-      Object.defineProperty(navigator, 'languages', {
-        get: function () {
-          return ['ko-kr', 'ko'];
-        },
-      });
-    });
 
     await page.goto(
       `${
