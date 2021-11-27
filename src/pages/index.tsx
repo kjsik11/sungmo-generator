@@ -107,7 +107,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       ...query,
-      text: { first: query.first ?? '뭐지...', second: query.second ?? '말대꾸?!' },
+      text: { first: query.first ?? '여자가...', second: query.second ?? '말대꾸?!' },
     },
   };
 };
