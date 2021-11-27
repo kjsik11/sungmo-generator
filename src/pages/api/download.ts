@@ -21,6 +21,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const page = await browser.newPage();
 
+    await page.setExtraHTTPHeaders({
+      'Accept-Language': 'ko',
+    });
+
     await page.goto(
       `${
         process.env.NODE_ENV === 'production'
