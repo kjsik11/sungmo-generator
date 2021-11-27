@@ -78,10 +78,10 @@ export default function IndexPage({ text }: Props) {
             <div className="text-center">
               <NextImage width={425} height={661} src={mainImage} />
             </div>
-            <p className="text-5xl w-full font-extraDark absolute top-[13%] left-1/2 text-center -translate-x-1/2">
+            <p className="text-5xl w-full font-bold absolute top-[13%] left-1/2 text-center -translate-x-1/2">
               {line.first}
             </p>
-            <p className="text-5xl w-full font-extraDark absolute top-[78%] left-1/2 text-center -translate-x-1/2">
+            <p className="text-5xl w-full font-bold absolute top-[78%] left-1/2 text-center -translate-x-1/2">
               {line.second}
             </p>
           </div>

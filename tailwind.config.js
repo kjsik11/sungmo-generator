@@ -9,9 +9,6 @@ module.exports = {
       fontWeight: {
         extraDark: 550,
       },
-      fontFamily: {
-        nanum: 'NanumGothic',
-      },
       colors: {
         // You can add more colors here.
         sky: colors.sky,
