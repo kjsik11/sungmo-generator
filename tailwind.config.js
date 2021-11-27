@@ -6,9 +6,11 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      fontWeight: {
+        extraDark: 550,
+      },
       fontFamily: {
-        // 'Inter' fontFamily was imported in _document.tsx
-        inter: "'Inter'",
+        nanum: 'NanumGothic',
       },
       colors: {
         // You can add more colors here.
