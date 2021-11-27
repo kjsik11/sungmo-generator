@@ -29,6 +29,24 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }?first=${first}&second=${second}`,
     );
 
+    await page.setExtraHTTPHeaders({
+      'Accept-Language': 'ko',
+    });
+
+    // Set the language forcefully on javascript
+    await page.evaluateOnNewDocument(() => {
+      Object.defineProperty(navigator, 'language', {
+        get: function () {
+          return 'ko-kr';
+        },
+      });
+      Object.defineProperty(navigator, 'languages', {
+        get: function () {
+          return ['ko-kr', 'ko'];
+        },
+      });
+    });
+
     await page.waitForSelector('#image-tag'); // wait for the selector to load
     const element = await page.$('#image-tag'); // declare a variable with an ElementHandle
     if (!element) {

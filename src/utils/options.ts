@@ -23,7 +23,7 @@ export async function getOptions(isDev: boolean) {
     };
   } else {
     options = {
-      args: chrome.args,
+      args: [...chrome.args, '--lang=ko-kr,ko'],
       executablePath: await chrome.executablePath,
       headless: chrome.headless,
     };
