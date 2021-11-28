@@ -102,8 +102,10 @@ export default function IndexPage({ text }: Props) {
       <div className="text-center pb-20 flex flex-col items-center space-y-2 text-gray-600">
         <p>많이 사용해주셔서 감사합니다 ㅎㅎ..😀</p>
         <a
+          target="_blank"
           href="mailto: kjsik11@gmail.com"
           className="hover:opacity-80 hover:underline font-bold text-blue-600 pb-4"
+          rel="noreferrer"
         >
           버그, 피드백 메일로 제보하기
         </a>
