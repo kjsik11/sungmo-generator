@@ -37,12 +37,37 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Script src="/js/redirectIE.js" strategy="beforeInteractive" />
       <DefaultSeo
-        title="Sungmo Generator"
-        description="Make your own image"
+        title="김성모 짤 생성기"
+        additionalLinkTags={[
+          {
+            rel: 'icon',
+            href: '/assets/favicon.ico',
+          },
+          {
+            rel: 'icon',
+            type: 'image/png',
+            sizes: '16x16',
+            href: '/assets/favicon-16x16.png',
+          },
+          {
+            rel: 'icon',
+            type: 'image/png',
+            sizes: '32x32',
+            href: '/assets/favicon-32x32.png',
+          },
+          {
+            rel: 'apple-touch-icon',
+            href: '/assets/apple-touch-icon.png',
+            sizes: '180x180',
+          },
+          {
+            rel: 'manifest',
+            href: '/assets/site.webmanifest',
+          },
+        ]}
         openGraph={{
           type: 'website',
-          title: 'Sungmo Generator',
-          description: 'Sungmo image',
+          title: '김성모 짤 생성기',
           images: [
             {
               url: '/images/sungmo.png',

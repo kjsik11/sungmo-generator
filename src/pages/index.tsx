@@ -39,7 +39,7 @@ export default function IndexPage({ text }: Props) {
 
         downloadRef.current.click();
 
-        showNoti({ title: 'Success!!' });
+        showNoti({ title: '다운로드 완료!' });
 
         setLine({ first: '', second: '' });
 
@@ -56,7 +56,7 @@ export default function IndexPage({ text }: Props) {
 
   return (
     <div className={cn('mx-auto max-w-screen-xl p-4 h-full')}>
-      <p className="text-6xl font-bold text-center my-12 ">Sungmo Generator</p>
+      <p className="text-6xl font-bold text-center my-12">김성모 짤 생성기</p>
       <div className="lg:grid grid-cols-2 lg:gap-20 items-center justify-center pb-20">
         <div className="space-y-4 shadow-md p-4 rounded-md bg-gray-50">
           <Input
@@ -78,7 +78,7 @@ export default function IndexPage({ text }: Props) {
           <div>
             <div id="image-tag" className="relative max-w-[425px]">
               <div className="text-center">
-                <NextImage width={425} height={661} src={mainImage} />
+                <NextImage draggable={false} width={425} height={661} src={mainImage} />
               </div>
               <p className="text-5xl w-full font-bold absolute top-[13%] left-1/2 text-center -translate-x-1/2">
                 {line.first}
@@ -93,7 +93,7 @@ export default function IndexPage({ text }: Props) {
                 disabled={loading}
                 onClick={handleDownload}
               >
-                {loading ? <Spinner /> : 'Download Image'}
+                {loading ? <Spinner /> : '이미지 다운로드'}
               </Button>
             </div>
           </div>
