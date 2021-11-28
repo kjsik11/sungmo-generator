@@ -56,7 +56,7 @@ export default function IndexPage({ text }: Props) {
 
   return (
     <div className={cn('mx-auto max-w-screen-xl p-4 h-full')}>
-      <p className="text-6xl font-bold text-center my-12">김성모 짤 생성기</p>
+      <p className="text-4xl sm:text-6xl font-bold text-center my-12">김성모 짤 생성기</p>
       <div className="lg:grid grid-cols-2 lg:gap-20 items-center justify-center pb-20">
         <div className="space-y-4 shadow-md p-4 rounded-md bg-gray-50">
           <Input
