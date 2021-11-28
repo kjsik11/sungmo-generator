@@ -3,6 +3,7 @@ import mainImage from '/public/images/sungmo.png';
 import cn from 'classnames';
 import NextImage from 'next/image';
 import { GetServerSideProps } from 'next';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import Input from '@src/frontend/components/ui/Input';
 
@@ -97,6 +98,18 @@ export default function IndexPage({ text }: Props) {
             </div>
           </div>
         </div>
+      </div>
+      <div className="pb-20 flex flex-col items-center space-y-4">
+        <p className="text-center">
+          인앱브라우저 환경에서는 파일 다운로드 기능이 제대로 동작하지 않을 수 있습니다. 크롬 혹은
+          사파리와 같은 브라우저를 사용해주세요.
+        </p>
+        <CopyToClipboard
+          onCopy={() => showNoti({ title: '클립보드에 복사되었습니다.' })}
+          text="https://sungmo.jjong.co.kr/"
+        >
+          <Button>URL 복사하기</Button>
+        </CopyToClipboard>
       </div>
       <a className="hidden" ref={downloadRef} download="sungmo.jpeg" href="" />
     </div>
