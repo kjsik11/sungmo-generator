@@ -99,8 +99,8 @@ export default function IndexPage({ text }: Props) {
           </div>
         </div>
       </div>
-      <div className="pb-20 flex flex-col items-center space-y-2">
-        <p className="text-center">
+      <div className="text-center pb-20 flex flex-col items-center space-y-2 text-gray-600">
+        <p>
           인앱브라우저 환경에서는 파일 다운로드 기능이 제대로 동작하지 않을 수 있습니다. 크롬 혹은
           사파리와 같은 브라우저를 사용해주세요.
         </p>
