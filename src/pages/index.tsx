@@ -73,26 +73,28 @@ export default function IndexPage({ text }: Props) {
           />
           <p className="text-right text-sm text-gray-500">{line.second.length}/10</p>
         </div>
-        <div className="shadow-md p-4 rounded-md bg-gray-50">
-          <div id="image-tag" className="relative w-full">
-            <div className="text-center">
-              <NextImage width={425} height={661} src={mainImage} />
+        <div className="shadow-md p-4 rounded-md bg-gray-50 flex justify-center">
+          <div>
+            <div id="image-tag" className="relative max-w-[425px]">
+              <div className="text-center">
+                <NextImage width={425} height={661} src={mainImage} />
+              </div>
+              <p className="text-5xl w-full font-bold absolute top-[13%] left-1/2 text-center -translate-x-1/2">
+                {line.first}
+              </p>
+              <p className="text-5xl w-full font-bold absolute top-[78%] left-1/2 text-center -translate-x-1/2">
+                {line.second}
+              </p>
             </div>
-            <p className="text-5xl w-full font-bold absolute top-[13%] left-1/2 text-center -translate-x-1/2">
-              {line.first}
-            </p>
-            <p className="text-5xl w-full font-bold absolute top-[78%] left-1/2 text-center -translate-x-1/2">
-              {line.second}
-            </p>
-          </div>
-          <div className="flex justify-center mt-2">
-            <Button
-              className="w-60 flex justify-center"
-              disabled={loading}
-              onClick={handleDownload}
-            >
-              {loading ? <Spinner /> : 'Download Image'}
-            </Button>
+            <div className="flex justify-center mt-2">
+              <Button
+                className="w-60 flex justify-center"
+                disabled={loading}
+                onClick={handleDownload}
+              >
+                {loading ? <Spinner /> : 'Download Image'}
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -107,7 +109,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       ...query,
-      text: { first: query.first ?? '여자가...', second: query.second ?? '말대꾸?!' },
+      text: { first: query.first ?? 'XX가...', second: query.second ?? '말대꾸?!' },
     },
   };
 };
