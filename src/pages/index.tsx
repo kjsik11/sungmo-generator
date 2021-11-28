@@ -39,7 +39,7 @@ export default function IndexPage({ text }: Props) {
 
         downloadRef.current.click();
 
-        showNoti({ title: '다운로드 완료!' });
+        showNoti({ title: '이미지 생성 완료!' });
 
         setLine({ first: '', second: '' });
 
