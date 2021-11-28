@@ -101,6 +101,12 @@ export default function IndexPage({ text }: Props) {
       </div>
       <div className="text-center pb-20 flex flex-col items-center space-y-2 text-gray-600">
         <p>많이 사용해주셔서 감사합니다 ㅎㅎ..😀</p>
+        <a
+          href="mailto: kjsik11@gmail.com"
+          className="hover:opacity-80 hover:underline font-bold text-blue-600 pb-4"
+        >
+          버그, 피드백 메일로 제보하기
+        </a>
         <p>
           모바일의 <span className="font-bold">카카오톡 브라우저</span>와 같은 인앱브라우저
           환경에서는 파일 다운로드 기능이 제대로 동작하지 않을 수 있습니다.
