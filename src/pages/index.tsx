@@ -99,10 +99,14 @@ export default function IndexPage({ text }: Props) {
           </div>
         </div>
       </div>
-      <div className="pb-20 flex flex-col items-center space-y-4">
+      <div className="pb-20 flex flex-col items-center space-y-2">
         <p className="text-center">
           인앱브라우저 환경에서는 파일 다운로드 기능이 제대로 동작하지 않을 수 있습니다. 크롬 혹은
           사파리와 같은 브라우저를 사용해주세요.
+        </p>
+        <p>
+          이미지가 정상적으로 다운로드 되지 않았을경우 서버가 불안정해서 실패했을 확률이 높으니 한번
+          더 시도해주세요.
         </p>
         <CopyToClipboard
           onCopy={() => showNoti({ title: '클립보드에 복사되었습니다.' })}
