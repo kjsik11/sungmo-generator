@@ -102,8 +102,9 @@ export default function IndexPage({ text }: Props) {
       <div className="text-center pb-20 flex flex-col items-center space-y-2 text-gray-600">
         <p>
           모바일의 <span className="font-bold">카카오톡 브라우저</span>와 같은 인앱브라우저
-          환경에서는 파일 다운로드 기능이 제대로 동작하지 않을 수 있습니다. 크롬(안드로이드) 혹은
-          사파리(아이폰)와 같은 브라우저를 사용해주세요.
+          환경에서는 파일 다운로드 기능이 제대로 동작하지 않을 수 있습니다.
+          <br className="hidden sm:block" />
+          크롬(안드로이드) 혹은 사파리(아이폰)와 같은 브라우저를 사용해주세요.
         </p>
         <p>
           이미지가 정상적으로 다운로드 되지 않았을경우 서버가 불안정해서 실패했을 확률이 높으니 한번
