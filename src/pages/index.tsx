@@ -76,7 +76,7 @@ export default function IndexPage({ text }: Props) {
         <p className="mt-2 text-lg font-medium">현재 총 생성된 말대꾸 개수: {data?.totalCount}개</p>
       </div>
       <div className="mx-auto max-w-screen-xl px-4 lg:grid grid-cols-2 lg:gap-20 items-center justify-center pb-20">
-        <div className="space-y-4 shadow-md p-4 rounded-md bg-gray-50">
+        <div className="space-y-4 mb-4 lg:mb-0 shadow-md p-4 rounded-md bg-gray-50">
           <Input
             label="첫 번째 대사"
             maxLength={10}
