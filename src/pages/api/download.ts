@@ -9,12 +9,13 @@ import { getOptions } from '@src/utils/options';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
-    const { first, second } = (await Joi.object({
+    const { first, second, isPublic } = (await Joi.object({
       first: Joi.string().allow('').max(10).required(),
       second: Joi.string().allow('').max(10).required(),
+      isPublic: Joi.boolean().required(),
     })
       .required()
-      .validateAsync(req.query)) as { first: string; second: string };
+      .validateAsync(req.query)) as { first: string; second: string; isPublic: boolean };
 
     const options = await getOptions(process.env.NODE_ENV === 'development');
 
@@ -44,7 +45,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const db = await req.mongo.getDB();
 
-    await db.collection('log').insertOne({ first, second, created: new Date() });
+    await db.collection('log').insertOne({ first, second, isPublic, created: new Date() });
 
     return res.send(file);
   }

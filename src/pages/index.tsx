@@ -14,13 +14,28 @@ import { useNoti } from '@src/frontend/hooks/use-noti';
 import { fetcher } from '@src/frontend/lib/fetcher';
 import Spinner from '@src/frontend/components/ui/Spinner';
 
+import useSWR from 'swr';
+
+import TextImage from '@src/frontend/components/custom/TextImage';
+
 interface Props {
   text: { first: string; second: string };
 }
 
 export default function IndexPage({ text }: Props) {
+  const { data } = useSWR<{
+    recentText: { first: string; second: string; created: string }[];
+    totalCount: number;
+  }>('/api/recentImage', {
+    fallbackData: {
+      recentText: [],
+      totalCount: 50000,
+    },
+  });
+
   const [line, setLine] = useState<{ first: string; second: string }>(text);
   const [loading, setLoading] = useState(false);
+  const [isPublic, setIsPublic] = useState(false);
   const downloadRef = useRef<HTMLAnchorElement>(null);
 
   const { showNoti, showAlert } = useNoti();
@@ -30,7 +45,7 @@ export default function IndexPage({ text }: Props) {
       setLoading(true);
 
       const file = await fetcher('/api/download', {
-        searchParams: { first: line.first, second: line.second },
+        searchParams: { first: line.first, second: line.second, isPublic },
       }).blob();
 
       if (file && downloadRef && downloadRef.current) {
@@ -52,12 +67,15 @@ export default function IndexPage({ text }: Props) {
     } finally {
       setLoading(false);
     }
-  }, [showNoti, showAlert, line]);
+  }, [showNoti, showAlert, line, isPublic]);
 
   return (
-    <div className={cn('mx-auto max-w-screen-xl p-4 h-full')}>
-      <p className="text-4xl sm:text-6xl font-bold text-center my-12">김성모 짤 생성기</p>
-      <div className="lg:grid grid-cols-2 lg:gap-20 items-center justify-center pb-20">
+    <div className={cn('h-full')}>
+      <div className="my-12 text-center">
+        <h1 className="text-4xl sm:text-6xl font-bold">김성모 짤 생성기</h1>
+        <p className="mt-2 text-lg font-medium">현재 총 생성된 말대꾸 개수: {data?.totalCount}개</p>
+      </div>
+      <div className="mx-auto max-w-screen-xl px-4 lg:grid grid-cols-2 lg:gap-20 items-center justify-center pb-20">
         <div className="space-y-4 shadow-md p-4 rounded-md bg-gray-50">
           <Input
             label="첫 번째 대사"
@@ -73,6 +91,15 @@ export default function IndexPage({ text }: Props) {
             onChange={(e) => setLine((prev) => ({ ...prev, second: e.target.value }))}
           />
           <p className="text-right text-sm text-gray-500">{line.second.length}/10</p>
+          <div className="flex space-x-2 items-center">
+            <input
+              id="check-public"
+              checked={isPublic}
+              onChange={() => setIsPublic((prev) => !prev)}
+              type="checkbox"
+            />
+            <label htmlFor="check-public">다른 유저에게 공개하기</label>
+          </div>
         </div>
         <div className="shadow-md p-4 rounded-md bg-gray-50 flex justify-center">
           <div>
@@ -99,7 +126,19 @@ export default function IndexPage({ text }: Props) {
           </div>
         </div>
       </div>
-      <div className="text-center pb-20 flex flex-col items-center space-y-2 text-gray-600">
+      {data && data.recentText.length && (
+        <div className="text-center py-8 overflow-hidden">
+          <p className="text-2xl font-semibold">최근에 생성된 말대꾸(최대 20개)</p>
+          <div className="flex space-x-4 overflow-x-auto">
+            {data.recentText.map((val, idx) => (
+              <div className="first:ml-4 last:pr-4 flex-shrink-0 mt-4" key={`recent-image-${idx}`}>
+                <TextImage data={val} />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      <div className="text-center pb-20 flex flex-col items-center space-y-2 text-gray-600 px-4">
         <p>많이 사용해주셔서 감사합니다 ㅎㅎ..😀</p>
         <a
           target="_blank"
