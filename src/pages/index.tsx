@@ -177,7 +177,7 @@ export default function IndexPage({ text }: Props) {
           <Button>URL 복사하기</Button>
         </CopyToClipboard>
       </div>
-      <a className="hidden" ref={downloadRef} download="sungmo.jpg" href="" />
+      <a className="hidden" ref={downloadRef} download="sungmo.jpeg" href="" />
     </div>
   );
 }
