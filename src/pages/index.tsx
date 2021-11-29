@@ -17,6 +17,7 @@ import Spinner from '@src/frontend/components/ui/Spinner';
 import useSWR from 'swr';
 
 import TextImage from '@src/frontend/components/custom/TextImage';
+import Loading from '@src/frontend/components/core/Loading';
 
 interface Props {
   text: { first: string; second: string };
@@ -126,7 +127,7 @@ export default function IndexPage({ text }: Props) {
           </div>
         </div>
       </div>
-      {data && data.recentText.length && (
+      {data && data.recentText.length > 0 ? (
         <div className="text-center py-8 overflow-hidden">
           <p className="text-2xl font-semibold">최근에 생성된 말대꾸(최대 20개)</p>
           <div className="flex space-x-4 overflow-x-auto">
@@ -136,6 +137,10 @@ export default function IndexPage({ text }: Props) {
               </div>
             ))}
           </div>
+        </div>
+      ) : (
+        <div className="relative h-80 w-full">
+          <Loading />
         </div>
       )}
       <div className="text-center pb-20 flex flex-col items-center space-y-2 text-gray-600 px-4">
