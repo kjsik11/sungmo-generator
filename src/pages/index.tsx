@@ -5,7 +5,6 @@ import NextImage from 'next/image';
 import { GetServerSideProps } from 'next';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import badJson from 'badWords.json';
 
 import Input from '@src/frontend/components/ui/Input';
 
@@ -18,9 +17,6 @@ import Spinner from '@src/frontend/components/ui/Spinner';
 
 import useSWR from 'swr';
 
-import TextImage from '@src/frontend/components/custom/TextImage';
-import Loading from '@src/frontend/components/core/Loading';
-import { ApiError } from '@src/defines/errors';
 
 interface Props {
   text: { first: string; second: string };
@@ -28,18 +24,18 @@ interface Props {
 
 export default function IndexPage({ text }: Props) {
   const { data } = useSWR<{
-    recentText: { first: string; second: string; created: string }[];
+    // recentText: { first: string; second: string; created: string }[];
     totalCount: number;
   }>('/api/recentImage', {
     fallbackData: {
-      recentText: [],
+      // recentText: [],
       totalCount: 50000,
     },
   });
 
   const [line, setLine] = useState<{ first: string; second: string }>(text);
   const [loading, setLoading] = useState(false);
-  const [isPublic, setIsPublic] = useState(false);
+  // const [isPublic, setIsPublic] = useState(false);
   const downloadRef = useRef<HTMLAnchorElement>(null);
 
   const { showNoti, showAlert } = useNoti();
@@ -48,15 +44,15 @@ export default function IndexPage({ text }: Props) {
     try {
       setLoading(true);
 
-      if (isPublic) {
-        badJson.badwords.forEach((word) => {
-          if (line.first.includes(word) || line.second.includes(word))
-            throw new ApiError('BAD_WORDS');
-        });
-      }
+      // if (isPublic) {
+      //   badJson.badwords.forEach((word) => {
+      //     if (line.first.includes(word) || line.second.includes(word))
+      //       throw new ApiError('BAD_WORDS');
+      //   });
+      // }
 
       const file = await fetcher('/api/download', {
-        searchParams: { first: line.first, second: line.second, isPublic },
+        searchParams: { first: line.first, second: line.second },
       }).blob();
 
       if (file && downloadRef && downloadRef.current) {
@@ -78,7 +74,7 @@ export default function IndexPage({ text }: Props) {
     } finally {
       setLoading(false);
     }
-  }, [showNoti, showAlert, line, isPublic]);
+  }, [showNoti, showAlert, line]);
 
   return (
     <div className={cn('h-full')}>
@@ -102,7 +98,7 @@ export default function IndexPage({ text }: Props) {
             onChange={(e) => setLine((prev) => ({ ...prev, second: e.target.value }))}
           />
           <p className="text-right text-sm text-gray-500">{line.second.length}/10</p>
-          <div className="flex space-x-2 items-center">
+          {/* <div className="flex space-x-2 items-center">
             <input
               id="check-public"
               checked={isPublic}
@@ -110,7 +106,7 @@ export default function IndexPage({ text }: Props) {
               type="checkbox"
             />
             <label htmlFor="check-public">다른 유저에게 공개하기</label>
-          </div>
+          </div> */}
         </div>
         <div className="shadow-md p-4 rounded-md bg-gray-50 flex justify-center">
           <div>
@@ -137,7 +133,7 @@ export default function IndexPage({ text }: Props) {
           </div>
         </div>
       </div>
-      {data && data.recentText.length > 0 ? (
+      {/* {data && data.recentText.length > 0 ? (
         <div className="text-center py-8 overflow-hidden">
           <p className="text-2xl font-semibold">최근에 생성된 말대꾸(최대 20개)</p>
           <div className="flex space-x-4 overflow-x-auto">
@@ -152,9 +148,10 @@ export default function IndexPage({ text }: Props) {
         <div className="relative h-80 w-full">
           <Loading />
         </div>
-      )}
+      )} */}
       <div className="text-center pb-20 flex flex-col items-center space-y-2 text-gray-600 px-4">
         <p>많이 사용해주셔서 감사합니다 ㅎㅎ..😀</p>
+        <p>최근 생성 말대꾸는 의도와 다르게 사용되는 느낌이라 제거했습니다.</p>
         <a
           target="_blank"
           href="mailto: kjsik11@gmail.com"
@@ -180,7 +177,7 @@ export default function IndexPage({ text }: Props) {
           <Button>URL 복사하기</Button>
         </CopyToClipboard>
       </div>
-      <a className="hidden" ref={downloadRef} download="sungmo.jpeg" href="" />
+      <a className="hidden" ref={downloadRef} download="sungmo.png" href="" />
     </div>
   );
 }

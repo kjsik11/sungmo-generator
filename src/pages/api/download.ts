@@ -2,29 +2,27 @@ import Chromium from 'chrome-aws-lambda';
 import Joi from 'joi';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import badJson from 'badWords.json';
 
 import { NextApiBuilder } from '@src/backend/api-wrapper';
 import { mongoDbWrapper } from '@src/backend/api-wrapper/mongodb';
-import { ApiError } from '@src/defines/errors';
 import { FONT_PATH } from '@src/utils/env';
 import { getOptions } from '@src/utils/options';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
-    const { first, second, isPublic } = (await Joi.object({
+    const { first, second} = (await Joi.object({
       first: Joi.string().allow('').max(10).required(),
       second: Joi.string().allow('').max(10).required(),
-      isPublic: Joi.boolean().required(),
+      // isPublic: Joi.boolean().required(),
     })
       .required()
-      .validateAsync(req.query)) as { first: string; second: string; isPublic: boolean };
+      .validateAsync(req.query)) as { first: string; second: string;  };
 
-    if (isPublic) {
-      badJson.badwords.forEach((word) => {
-        if (first.includes(word) || second.includes(word)) throw new ApiError('BAD_WORDS');
-      });
-    }
+    // if (isPublic) {
+    //   badJson.badwords.forEach((word) => {
+    //     if (first.includes(word) || second.includes(word)) throw new ApiError('BAD_WORDS');
+    //   });
+    // }
 
     const options = await getOptions(process.env.NODE_ENV === 'development');
 
@@ -48,13 +46,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       console.log('error');
       return res.status(404).end();
     }
-    const file = await element.screenshot({ type: 'jpeg' });
+    const file = await element.screenshot({ type: 'png' });
 
     await browser.close();
 
     const db = await req.mongo.getDB();
 
-    await db.collection('log').insertOne({ first, second, isPublic, created: new Date() });
+    await db.collection('log').insertOne({ first, second, created: new Date() });
 
     return res.send(file);
   }
