@@ -46,7 +46,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       console.log('error');
       return res.status(404).end();
     }
-    const file = await element.screenshot({ type: 'png' });
+    const file = await element.screenshot({ type: 'jpeg' });
 
     await browser.close();
 
