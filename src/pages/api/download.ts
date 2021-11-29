@@ -2,7 +2,7 @@ import Chromium from 'chrome-aws-lambda';
 import Joi from 'joi';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { badwords } from 'badWords.json';
+import badJson from 'badWords.json';
 
 import { NextApiBuilder } from '@src/backend/api-wrapper';
 import { mongoDbWrapper } from '@src/backend/api-wrapper/mongodb';
@@ -21,7 +21,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       .validateAsync(req.query)) as { first: string; second: string; isPublic: boolean };
 
     if (isPublic) {
-      badwords.forEach((word) => {
+      badJson.badwords.forEach((word) => {
         if (first.includes(word) || second.includes(word)) throw new ApiError('BAD_WORDS');
       });
     }
