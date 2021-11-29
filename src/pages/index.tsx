@@ -112,7 +112,7 @@ export default function IndexPage({ text }: Props) {
           <div>
             <div id="image-tag" className="relative max-w-[425px]">
               <div className="text-center">
-                <NextImage draggable={false} width={425} height={661} src={mainImage} />
+                <NextImage loading="eager" draggable={false} width={425} height={661} src={mainImage} />
               </div>
               <p className="text-5xl w-full font-bold absolute top-[13%] left-1/2 text-center -translate-x-1/2">
                 {line.first}
