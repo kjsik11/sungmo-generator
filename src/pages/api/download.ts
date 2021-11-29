@@ -20,8 +20,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       .required()
       .validateAsync(req.query)) as { first: string; second: string; isPublic: boolean };
 
-    if (isPublic && (badwords.includes(first) || badwords.includes(second)))
-      throw new ApiError('BAD_WORDS');
+    if (isPublic) {
+      badwords.forEach((word) => {
+        if (first.includes(word) || second.includes(word)) throw new ApiError('BAD_WORDS');
+      });
+    }
 
     const options = await getOptions(process.env.NODE_ENV === 'development');
 
