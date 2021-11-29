@@ -63,8 +63,6 @@ export default function IndexPage({ text,totalCount }: Props) {
 
         showNoti({ title: '이미지 생성 완료!' });
 
-        setLine({ first: '', second: '' });
-
         return;
       }
 
