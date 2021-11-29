@@ -14,24 +14,24 @@ import { Button } from '@src/frontend/components/ui';
 import { useNoti } from '@src/frontend/hooks/use-noti';
 import { fetcher } from '@src/frontend/lib/fetcher';
 import Spinner from '@src/frontend/components/ui/Spinner';
-
-import useSWR from 'swr';
+import { connectMongo } from '@src/utils/mongodb/connect';
 
 
 interface Props {
+  totalCount:number
   text: { first: string; second: string };
 }
 
-export default function IndexPage({ text }: Props) {
-  const { data } = useSWR<{
-    // recentText: { first: string; second: string; created: string }[];
-    totalCount: number;
-  }>('/api/recentImage', {
-    fallbackData: {
-      // recentText: [],
-      totalCount: 50000,
-    },
-  });
+export default function IndexPage({ text,totalCount }: Props) {
+  // const { data } = useSWR<{
+  //   recentText: { first: string; second: string; created: string }[];
+  //   totalCount: number;
+  // }>('/api/recentImage', {
+  //   fallbackData: {
+  //     recentText: [],
+  //     totalCount: 50000,
+  //   },
+  // });
 
   const [line, setLine] = useState<{ first: string; second: string }>(text);
   const [loading, setLoading] = useState(false);
@@ -80,7 +80,7 @@ export default function IndexPage({ text }: Props) {
     <div className={cn('h-full')}>
       <div className="my-12 text-center">
         <h1 className="text-4xl sm:text-6xl font-bold">김성모 짤 생성기</h1>
-        <p className="mt-2 text-lg font-medium">현재 총 생성된 말대꾸 개수: {data?.totalCount}개</p>
+        <p className="mt-2 text-lg font-medium">현재 총 생성된 말대꾸 개수: {totalCount}개</p>
       </div>
       <div className="mx-auto max-w-screen-xl px-4 lg:grid grid-cols-2 lg:gap-20 items-center justify-center pb-20">
         <div className="space-y-4 mb-4 lg:mb-0 shadow-md p-4 rounded-md bg-gray-50">
@@ -185,9 +185,17 @@ export default function IndexPage({ text }: Props) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const query = context.query;
 
+  let totalCount = 50000
+  if(!query.first &&!query.second) {
+    const {db }= await connectMongo()
+
+     totalCount = await db.collection('log').find().count();
+  }
+
   return {
     props: {
       ...query,
+      totalCount,
       text: { first: query.first ?? 'XX가...', second: query.second ?? '말대꾸?!' },
     },
   };
