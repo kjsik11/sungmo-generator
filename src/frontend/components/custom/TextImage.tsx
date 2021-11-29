@@ -15,7 +15,7 @@ export default function TextImage({ data }: Props) {
         <div className="text-center">
           <NextImage loading="lazy" placeholder="blur" width={212} height={330} src={mainImage} />
         </div>
-        <p className="text-2xl w-full font-bold absolute top-[12%] left-1/2 text-center -translate-x-1/2">
+        <p className="text-2xl w-full font-bold absolute top-[11%] left-1/2 text-center -translate-x-1/2">
           {data.first}
         </p>
         <p className="text-2xl w-full font-bold absolute top-[72%] left-1/2 text-center -translate-x-1/2">
