@@ -35,6 +35,14 @@ export const ERRORS = {
     statusCode: StatusCodes.UNAUTHORIZED,
     message: 'The token has been expired.',
   },
+
+  //Custom Errors
+  BAD_WORDS: {
+    name: 'BadWords',
+    code: 'BW001',
+    statusCode: StatusCodes.FORBIDDEN,
+    message: '비속어가 포함되어있는 말대꾸는 공개할 수 없습니다.',
+  },
 } as const;
 
 type ErrorKey = keyof typeof ERRORS;

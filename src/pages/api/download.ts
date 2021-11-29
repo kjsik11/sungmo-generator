@@ -2,8 +2,11 @@ import Chromium from 'chrome-aws-lambda';
 import Joi from 'joi';
 import { NextApiRequest, NextApiResponse } from 'next';
 
+import { badwords } from 'badWords.json';
+
 import { NextApiBuilder } from '@src/backend/api-wrapper';
 import { mongoDbWrapper } from '@src/backend/api-wrapper/mongodb';
+import { ApiError } from '@src/defines/errors';
 import { FONT_PATH } from '@src/utils/env';
 import { getOptions } from '@src/utils/options';
 
@@ -16,6 +19,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     })
       .required()
       .validateAsync(req.query)) as { first: string; second: string; isPublic: boolean };
+
+    if (isPublic && (badwords.includes(first) || badwords.includes(second)))
+      throw new ApiError('BAD_WORDS');
 
     const options = await getOptions(process.env.NODE_ENV === 'development');
 
