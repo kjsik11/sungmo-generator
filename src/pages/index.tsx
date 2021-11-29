@@ -5,6 +5,8 @@ import NextImage from 'next/image';
 import { GetServerSideProps } from 'next';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
+import badJson from 'badWords.json';
+
 import Input from '@src/frontend/components/ui/Input';
 
 import { useCallback, useRef, useState } from 'react';
@@ -18,6 +20,7 @@ import useSWR from 'swr';
 
 import TextImage from '@src/frontend/components/custom/TextImage';
 import Loading from '@src/frontend/components/core/Loading';
+import { ApiError } from '@src/defines/errors';
 
 interface Props {
   text: { first: string; second: string };
@@ -44,6 +47,13 @@ export default function IndexPage({ text }: Props) {
   const handleDownload = useCallback(async () => {
     try {
       setLoading(true);
+
+      if (isPublic) {
+        badJson.badwords.forEach((word) => {
+          if (line.first.includes(word) || line.second.includes(word))
+            throw new ApiError('BAD_WORDS');
+        });
+      }
 
       const file = await fetcher('/api/download', {
         searchParams: { first: line.first, second: line.second, isPublic },
