@@ -78,7 +78,7 @@ export default function IndexPage({ text,totalCount }: Props) {
     <div className={cn('h-full')}>
       <div className="my-12 text-center">
         <h1 className="text-4xl sm:text-6xl font-bold">김성모 짤 생성기</h1>
-        <p className="mt-2 text-lg font-medium">현재 총 생성된 말대꾸 개수: {totalCount}개</p>
+        <p className="mt-2 sm:text-lg font-medium">현재까지 생성된 총 말대꾸 개수: {totalCount}개</p>
       </div>
       <div className="mx-auto max-w-screen-xl px-4 lg:grid grid-cols-2 lg:gap-20 items-center justify-center pb-20">
         <div className="space-y-4 mb-4 lg:mb-0 shadow-md p-4 rounded-md bg-gray-50">
