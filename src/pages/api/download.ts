@@ -2,7 +2,6 @@ import Chromium from 'chrome-aws-lambda';
 import Joi from 'joi';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-
 import { NextApiBuilder } from '@src/backend/api-wrapper';
 import { mongoDbWrapper } from '@src/backend/api-wrapper/mongodb';
 import { FONT_PATH } from '@src/utils/env';
@@ -10,13 +9,13 @@ import { getOptions } from '@src/utils/options';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
-    const { first, second} = (await Joi.object({
+    const { first, second } = (await Joi.object({
       first: Joi.string().allow('').max(10).required(),
       second: Joi.string().allow('').max(10).required(),
       // isPublic: Joi.boolean().required(),
     })
       .required()
-      .validateAsync(req.query)) as { first: string; second: string;  };
+      .validateAsync(req.query)) as { first: string; second: string };
 
     // if (isPublic) {
     //   badJson.badwords.forEach((word) => {

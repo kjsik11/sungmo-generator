@@ -5,7 +5,6 @@ import NextImage from 'next/image';
 import { GetServerSideProps } from 'next';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-
 import Input from '@src/frontend/components/ui/Input';
 
 import { useCallback, useRef, useState } from 'react';
@@ -15,14 +14,14 @@ import { useNoti } from '@src/frontend/hooks/use-noti';
 import { fetcher } from '@src/frontend/lib/fetcher';
 import Spinner from '@src/frontend/components/ui/Spinner';
 import { connectMongo } from '@src/utils/mongodb/connect';
-
+import { useModal } from '@src/frontend/hooks/use-modal';
 
 interface Props {
-  totalCount:number
+  totalCount: number;
   text: { first: string; second: string };
 }
 
-export default function IndexPage({ text,totalCount }: Props) {
+export default function IndexPage({ text, totalCount }: Props) {
   // const { data } = useSWR<{
   //   recentText: { first: string; second: string; created: string }[];
   //   totalCount: number;
@@ -39,6 +38,7 @@ export default function IndexPage({ text,totalCount }: Props) {
   const downloadRef = useRef<HTMLAnchorElement>(null);
 
   const { showNoti, showAlert } = useNoti();
+  const { showModal, closeModal } = useModal();
 
   const handleDownload = useCallback(async () => {
     try {
@@ -54,6 +54,28 @@ export default function IndexPage({ text,totalCount }: Props) {
       const file = await fetcher('/api/download', {
         searchParams: { first: line.first, second: line.second },
       }).blob();
+
+      const { totalCount } = await fetcher('/api/count').json<{ totalCount: number }>();
+
+      if (totalCount === 100000) {
+        showModal({
+          title: '100000번째 말대꾸 생성을 축하드립니다.',
+          content:
+            '비밀키: THX sungmo, 비밀키를 메일로 스크린샷, 번호와 함께 보내주시면 소정의 선물을 드리겠습니다.',
+          actionButton: { label: '확인', onClick: () => closeModal() },
+          cancelButton: { label: '취소', onClick: () => closeModal() },
+        });
+      }
+
+      if (totalCount === 111111) {
+        showModal({
+          title: '111111번째 말대꾸 생성을 축하드립니다.',
+          content:
+            '비밀키: THX sungmo real, 비밀키를 메일로 스크린샷, 번호와 함께 보내주시면 소정의 선물을 드리겠습니다.',
+          actionButton: { label: '확인', onClick: () => closeModal() },
+          cancelButton: { label: '취소', onClick: () => closeModal() },
+        });
+      }
 
       if (file && downloadRef && downloadRef.current) {
         const fileDownloadUrl = URL.createObjectURL(file);
@@ -72,13 +94,15 @@ export default function IndexPage({ text,totalCount }: Props) {
     } finally {
       setLoading(false);
     }
-  }, [showNoti, showAlert, line]);
+  }, [showNoti, showAlert, showModal, closeModal, line]);
 
   return (
     <div className={cn('h-full')}>
       <div className="my-12 text-center">
         <h1 className="text-4xl sm:text-6xl font-bold">김성모 짤 생성기</h1>
-        <p className="mt-2 sm:text-lg font-medium">현재까지 생성된 총 말대꾸 개수: {totalCount}개</p>
+        <p className="mt-2 sm:text-lg font-medium">
+          현재까지 생성된 총 말대꾸 개수: {totalCount}개
+        </p>
       </div>
       <div className="mx-auto max-w-screen-xl px-4 lg:grid grid-cols-2 lg:gap-20 items-center justify-center pb-20">
         <div className="space-y-4 mb-4 lg:mb-0 shadow-md p-4 rounded-md bg-gray-50">
@@ -110,7 +134,13 @@ export default function IndexPage({ text,totalCount }: Props) {
           <div>
             <div id="image-tag" className="relative max-w-[425px]">
               <div className="text-center">
-                <NextImage loading="eager" draggable={false} width={425} height={661} src={mainImage} />
+                <NextImage
+                  loading="eager"
+                  draggable={false}
+                  width={425}
+                  height={661}
+                  src={mainImage}
+                />
               </div>
               <p className="text-5xl w-full font-bold absolute top-[13%] left-1/2 text-center -translate-x-1/2">
                 {line.first}
@@ -148,8 +178,12 @@ export default function IndexPage({ text,totalCount }: Props) {
         </div>
       )} */}
       <div className="text-center pb-20 flex flex-col items-center space-y-2 text-gray-600 px-4">
-        <p>많이 사용해주셔서 감사합니다 ㅎㅎ..😀</p>
-        <p>최근 생성 말대꾸는 의도와 다르게 사용되는 느낌이라 제거했습니다.</p>
+        <p>
+          10만 번째, 11만1111번째 말대꾸 생성한 뒤<br /> 출력되는 창의 비밀키를 스크린 샷, 본인의
+          번호와 함께 메일로 보내주시면 조그마한 선물을 드릴 예정입니다.
+          <br />
+          말대꾸 생성기를 많이 사랑해주셔서 감사합니다 ㅎㅎ..😀
+        </p>
         <a
           target="_blank"
           href="mailto: kjsik11@gmail.com"
@@ -183,11 +217,11 @@ export default function IndexPage({ text,totalCount }: Props) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const query = context.query;
 
-  let totalCount = 50000
-  if(!query.first &&!query.second) {
-    const {db }= await connectMongo()
+  let totalCount = 50000;
+  if (!query.first && !query.second) {
+    const { db } = await connectMongo();
 
-     totalCount = await db.collection('log').find().count();
+    totalCount = await db.collection('log').find().count();
   }
 
   return {
