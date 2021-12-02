@@ -169,11 +169,10 @@ export default function IndexPage({ text, totalCount }: Props) {
       )} */}
       <div className="text-center pb-20 flex flex-col items-center space-y-2 text-gray-600 px-4">
         <p>
-          <span className='line-through'>
-          10만 번째
-          </span>
-          , 11만1111번째 말대꾸를 생성한 뒤<br /> 출력되는 창의 비밀키를 스크린 샷, 본인의
-          번호와 함께 메일로 보내주시면 조그마한 선물을 드릴 예정입니다.
+          <span className="line-through">10만 번째</span>,
+          <span className="line-through">11만1111번째</span>
+          말대꾸를 생성한 뒤<br /> 출력되는 창의 비밀키를 스크린 샷, 본인의 번호와 함께 메일로
+          보내주시면 조그마한 선물을 드릴 예정입니다.
           <br />
           말대꾸 생성기를 많이 사랑해주셔서 감사합니다 ㅎㅎ..😀
         </p>
