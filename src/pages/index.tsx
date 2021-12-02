@@ -14,7 +14,6 @@ import { useNoti } from '@src/frontend/hooks/use-noti';
 import { fetcher } from '@src/frontend/lib/fetcher';
 import Spinner from '@src/frontend/components/ui/Spinner';
 import { connectMongo } from '@src/utils/mongodb/connect';
-import { useModal } from '@src/frontend/hooks/use-modal';
 
 interface Props {
   totalCount: number;
@@ -38,7 +37,6 @@ export default function IndexPage({ text, totalCount }: Props) {
   const downloadRef = useRef<HTMLAnchorElement>(null);
 
   const { showNoti, showAlert } = useNoti();
-  const { showModal, closeModal } = useModal();
 
   const handleDownload = useCallback(async () => {
     try {
@@ -54,18 +52,6 @@ export default function IndexPage({ text, totalCount }: Props) {
       const file = await fetcher('/api/download', {
         searchParams: { first: line.first, second: line.second },
       }).blob();
-
-      const { totalCount } = await fetcher('/api/count').json<{ totalCount: number }>();
-
-      if (totalCount === 111111) {
-        showModal({
-          title: '111111번째 말대꾸 생성을 축하드립니다.',
-          content:
-            '비밀키: THX sungmo real, 비밀키를 메일로 스크린샷, 번호와 함께 보내주시면 소정의 선물을 드리겠습니다.',
-          actionButton: { label: '확인', onClick: () => closeModal() },
-          cancelButton: { label: '취소', onClick: () => closeModal() },
-        });
-      }
 
       if (file && downloadRef && downloadRef.current) {
         const fileDownloadUrl = URL.createObjectURL(file);
@@ -84,7 +70,7 @@ export default function IndexPage({ text, totalCount }: Props) {
     } finally {
       setLoading(false);
     }
-  }, [showNoti, showAlert, showModal, closeModal, line]);
+  }, [showNoti, showAlert, line]);
 
   return (
     <div className={cn('h-full')}>
