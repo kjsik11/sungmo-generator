@@ -13,6 +13,7 @@
     "@headlessui/react": "1.4.2",
     "@heroicons/react": "1.0.5",
     "@types/react-gtm-module": "2.0.1",
+    "bowser": "2.11.0",
     "chrome-aws-lambda": "10.1.0",
     "classnames": "2.3.1",
     "crypto-random-string": "3.3.1",

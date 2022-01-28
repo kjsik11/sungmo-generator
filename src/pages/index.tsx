@@ -154,18 +154,7 @@ export default function IndexPage({ text, totalCount }: Props) {
         </div>
       )} */}
       <div className="text-center pb-20 flex flex-col items-center space-y-2 text-gray-600 px-4">
-        <p>
-          <span className="line-through">10만 번째</span>,
-          <span className="line-through">11만1111번째</span>
-          말대꾸를 생성한 뒤<br /> 출력되는 창의 비밀키를 스크린 샷, 본인의 번호와 함께 메일로
-          보내주시면 조그마한 선물을 드릴 예정입니다.
-          <br />
-          말대꾸 생성기를 많이 사랑해주셔서 감사합니다 ㅎㅎ..😀
-        </p>
-        <p className="hover:opacity-80 font-semibold text-blue-600 pb-4">
-          개인 사정으로 바빠지게 되어 더이상의 업데이트는 진행하지 않겠습니다.
-          <br /> 많이 사용해주셔서 감사합니다.
-        </p>
+        <p>말대꾸 생성기를 많이 사랑해주셔서 감사합니다 ㅎㅎ..😀</p>
         <p>
           모바일의 <span className="font-bold">카카오톡 브라우저</span>와 같은 인앱브라우저
           환경에서는 파일 다운로드 기능이 제대로 동작하지 않을 수 있습니다.
