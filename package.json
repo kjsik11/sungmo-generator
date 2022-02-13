@@ -12,6 +12,7 @@
   "dependencies": {
     "@headlessui/react": "1.4.2",
     "@heroicons/react": "1.0.5",
+    "@types/pica": "9.0.0",
     "@types/react-gtm-module": "2.0.1",
     "bowser": "2.11.0",
     "chrome-aws-lambda": "10.1.0",
@@ -29,6 +30,7 @@
     "next-seo": "4.28.1",
     "next-use-nprogress": "0.1.0",
     "nprogress": "0.2.0",
+    "pica": "9.0.1",
     "puppeteer": "11.0.0",
     "react": "17.0.2",
     "react-copy-to-clipboard": "5.0.4",

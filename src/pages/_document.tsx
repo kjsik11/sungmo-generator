@@ -5,8 +5,10 @@ class MyDocument extends Document {
     return (
       <Html lang="ko">
         <Head>
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
-            href="https://hangeul.pstatic.net/hangeul_static/css/nanum-gothic.css"
+            href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap"
             rel="stylesheet"
           />
           <meta charSet="utf-8" />

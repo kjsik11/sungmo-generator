@@ -27,4 +27,3 @@ export const getEnv: (name: EnvironmentVariable) => string = (name: string) => {
 
 export const MONGODB_URI = getEnv('MONGODB_URI');
 export const MONGODB_NAME = getEnv('MONGODB_NAME');
-export const FONT_PATH = getEnv('FONT_PATH');

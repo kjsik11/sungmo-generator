@@ -10,7 +10,7 @@ module.exports = {
         extraDark: 550,
       },
       fontFamily: {
-        nanum: 'NanumGothic',
+        nanum: "'Nanum Gothic', sans-serif",
       },
       colors: {
         // You can add more colors here.
