@@ -109,6 +109,7 @@ export default function IndexPage({ totalCount }: Props) {
           <Input
             label="첫 번째 대사"
             maxLength={9}
+            max={9}
             value={first}
             onChange={(e) => {
               setFirst(e.target.value);
@@ -120,6 +121,7 @@ export default function IndexPage({ totalCount }: Props) {
             value={second}
             onChange={(e) => setSecond(e.target.value)}
             maxLength={9}
+            max={9}
           />
           <p className="text-right text-sm text-gray-500">{second.length}/9</p>
         </div>
