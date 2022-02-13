@@ -186,5 +186,6 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       totalCount,
     },
+    revalidate: 60,
   };
 };
