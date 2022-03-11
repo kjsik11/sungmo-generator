@@ -29,7 +29,7 @@ export default function IndexPage({ totalCount }: Props) {
 
   const { data } = useSWR<{
     totalCount: number;
-  }>('/api/recentImage', { fallbackData: { totalCount }, refreshInterval: 60 });
+  }>('/api/recentImage', { fallbackData: { totalCount }, refreshInterval: 5000 });
 
   const [first, setFirst] = useState('XX가');
   const [second, setSecond] = useState('말대꾸?!');
