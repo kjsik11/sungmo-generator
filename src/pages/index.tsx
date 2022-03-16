@@ -8,7 +8,7 @@ import mainImage from '/public/images/sungmo.png';
 
 import useSWR from 'swr';
 
-import { Button } from '@src/frontend/components/ui';
+import { Button, HamaButton } from '@src/frontend/components/ui';
 import Input from '@src/frontend/components/ui/Input';
 import Spinner from '@src/frontend/components/ui/Spinner';
 import { useNoti } from '@src/frontend/hooks/use-noti';
@@ -103,6 +103,13 @@ export default function IndexPage({ totalCount }: Props) {
         <p className="mt-2 sm:text-lg font-medium">
           현재까지 생성된 총 말대꾸 개수: {data?.totalCount.toLocaleString()}개
         </p>
+        <div className="space-y-2 items-center py-4 px-1 sm:px-2">
+          <p className="font-semibold text-sm sm:text-base">
+            제가 개발한 인공지능 이미지 지우개 어플리케이션!&nbsp;
+            <br className="sm:hidden" />한 번씩 체험해보세요!
+          </p>
+          <HamaButton />
+        </div>
       </div>
       <div className="mx-auto max-w-screen-xl px-4 lg:grid grid-cols-2 lg:gap-20 items-center justify-center pb-20">
         <div className="space-y-4 mb-4 lg:mb-0 shadow-md p-4 rounded-md bg-gray-50">
@@ -157,7 +164,7 @@ export default function IndexPage({ totalCount }: Props) {
       </div>
 
       <div className="text-center pb-20 flex flex-col items-center space-y-2 text-gray-600 px-4">
-        <p>말대꾸 생성기를 많이 사랑해주셔서 감사합니다 ㅎㅎ..😀</p>
+        <p>말대꾸 생성기를 사랑해주셔서 감사합니다. 😀</p>
         <p>
           모바일의 <span className="font-bold">카카오톡 브라우저</span>와 같은 인앱브라우저
           환경에서는 파일 다운로드 기능이 제대로 동작하지 않을 수 있습니다.

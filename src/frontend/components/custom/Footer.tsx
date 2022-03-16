@@ -12,6 +12,8 @@ import GithubLogo from '@src/frontend/components/vector/GithubLogo';
 import TextLogo from '@src/frontend/components/vector/TextLogo';
 import { isDesktop } from '@src/utils/bowser';
 
+import { HamaButton } from '../ui';
+
 interface Props {
   className?: string;
 }
@@ -87,6 +89,7 @@ export default function Footer({ className }: Props) {
               ))}
             </ul>
             <div className="mt-8 space-y-2">
+              <HamaButton />
               <a
                 href={BUY_ME_A_COFFEE}
                 className="bg-black hover:opacity-80 py-2 flex justify-center rounded-lg text-white space-x-2 w-[240px]"
