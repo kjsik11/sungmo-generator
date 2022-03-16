@@ -105,7 +105,7 @@ export default function IndexPage({ totalCount }: Props) {
         </p>
         <div className="space-y-2 items-center py-4 px-1 sm:px-2">
           <p className="font-semibold text-sm sm:text-base">
-            제가 개발한 인공지능 이미지 지우개 어플리케이션!&nbsp;
+            제가 개발한 인공지능 이미지 지우개 어플리케이션도&nbsp;
             <br className="sm:hidden" />한 번씩 체험해보세요!
           </p>
           <HamaButton />
